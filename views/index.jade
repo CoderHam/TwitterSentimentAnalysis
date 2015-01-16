@@ -1,0 +1,41 @@
+extends layout
+// Define basic data fields using Jade’s mixin features
+// Bind to those data fields for dynamic updates
+mixin metric(id,title,footer)
+  div(class="panel panel-default",id="#{id}-metric" )
+    if title
+      div.panel-heading: h3.panel-title= title
+    div(class="panel-body metric")
+      h1#ss-message= "TBD"
+    if footer
+      div.panel-footer= footer
+  block styles
+  //link(rel=’stylesheet’,href=’/stylesheets/dashboard.css’)
+block scripts
+  script(src='/socket.io/socket.io.js')
+  // bind to the data fields defined in mixin
+  // stream the actual data from the data stream emitter
+  script(src='/javascripts/client.socket.io.js')
+block content
+  div(class="container")
+    div(class = "page-header")
+      h1(class = "text-primary").
+        Twitter Sentiment Analyzer
+      table.table.table-striped
+        tbody
+         tr
+          td No of Tweets with 'Love'
+          td
+            div#lcount
+          td No of Tweets with 'Hate'
+          td
+            div#hcount
+    div(class="row")
+      div(class="col-md-6")
+        div(class="panel panel-default", id="l-message-metric")
+          div.panel-heading: h3.panel-title="Tweets with 'Love'"
+        div#lbody(class="panel-body")
+      div(class="col-md-6")
+        div(class="panel panel-default", id="h-message-metric")
+          div.panel-heading: h3.panel-title="Tweets with 'Hate'"
+        div#hbody(class="panel-body")
