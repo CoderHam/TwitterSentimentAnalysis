@@ -19,17 +19,36 @@ block scripts
 block content
   div(class="container")
     div(class = "page-header")
-      h1(class = "text-primary").
-        Twitter Sentiment Analyzer
-      table.table.table-striped
-        tbody
-         tr
-          td No of Tweets with 'Love'
-          td
-            div#lcount
-          td No of Tweets with 'Hate'
-          td
-            div#hcount
+      div.col-md-10
+        h1(class = "text-primary").
+         Twitter Sentiment Analyzer
+      div#total(class = "col-md-2")
+    // Table to show statistics
+    table.table.table-striped
+      tbody
+       tr
+        td
+         h4.
+          No of Tweets with 'Love'
+        td
+          div#lcount
+        td
+         h4.
+          No of Tweets with 'Hate'
+        td
+          div#hcount
+       tr
+        td
+         h4.
+          Percentage of Tweets with 'Love'
+        td
+          div#lpercent
+        td
+         h4.
+          Percentage of Tweets with 'Hate'
+        td
+          div#hpercent
+    //Table to show tweets.
     div(class="row")
       div(class="col-md-6")
         div(class="panel panel-default", id="l-message-metric")

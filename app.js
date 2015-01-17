@@ -10,6 +10,8 @@ var users = require('./routes/users');
 
 var app = express();
 
+// Creating server socket and listening for client on port 3000.
+// Mainly uses 'http' and 'socket.io'
 var server = require('http').createServer(app);
 var port = 3000;
 server.listen(port);
@@ -17,8 +19,10 @@ console.log("Server Socket started and listening on port : " + port);
 
 var sio = require('socket.io').listen(server);
 
+// Using 'Twit' node.js library to fetch twitter stream of tweets currently getting tweeted.
 var Twit = require('twit');
 
+// Passing the Twitter Credentials stored as environment variables.
 var T = new Twit({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -26,13 +30,47 @@ var T = new Twit({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
+// Variables for calculating the statistics for number of tweets and percentages
+var love_count = 0;
+var hate_count = 0;
+var lpercent = 0;
+var hpercent = 0;
+var total = 0;
+
+//Query to fetch the twitter stream with filter Love and Hate.
 var stream = T.stream('statuses/filter', { track: ['love', 'hate'] });
 
+//Listening to 'tweet' event which sends callback whenever someone sends a tweet with the specified filter.
 stream.on('tweet', function(tweet){
-    //console.log(tweet['text']);
-    sio.sockets.emit('s:tweet', {text: tweet['text']});
+    //Calculating the statistics.
+    total++;
+    if(tweet['text'].toLowerCase().indexOf('love') >= 0) {
+        love_count++;
+    }
+    if(tweet['text'].toLowerCase().indexOf('hate') > -1) {
+        hate_count++;
+    }
+    lpercent = (love_count / total * 100);
+    lpercent = Math.round(lpercent * 100)/100;
+    hpercent = (hate_count / total * 100);
+    hpercent = Math.round(hpercent * 100)/100;
+
+    // Broadcasting messages to all the connected clients.
+    // The message contains all the statistic information, actual tweet message, the name of the person who tweeted, and the image URl of the person.
+    sio.sockets.emit('s:tweet', {
+        l_count: love_count,
+        h_count: hate_count,
+        l_percent: lpercent,
+        h_percent: hpercent,
+        total: total,
+        text: tweet.text,
+        name: tweet.user.screen_name,
+        url: tweet.user.profile_image_url
+    });
+
 });
 
+// Just prints a message if client is connected or disconnected. Not really required as a functionality.
 sio.sockets.on('connection', function(socket) {
     console.log('Web client connected');
 
