@@ -1,20 +1,33 @@
 {
-  "name": "TwitterSentimentAnalysis",
+  "name": "twitter_sentiment",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.10.1",
-    "cookie-parser": "~1.3.3",
-    "debug": "~2.1.1",
-    "express": "~4.10.6",
-    "jade": "~1.8.2",
-    "morgan": "~1.5.1",
+    "body-parser": "^1.10.1",
+    "cookie-parser": "^1.3.3",
+    "debug": "^2.1.1",
+    "express": "^4.10.6",
+    "jade": "^1.8.2",
+    "morgan": "^1.5.1",
     "path": "^0.11.14",
-    "serve-favicon": "~2.2.0",
+    "serve-favicon": "^2.2.0",
     "socket.io": "^1.2.1",
     "twit": "^1.1.19"
-  }
+  },
+  "description": "This is a simple Twitter Sentiment Analyzer.  The dashboard will show the comparisons between tweets with keyword 'Love' and 'Hate'.",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoderHam/TwitterSentimentAnalysis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CoderHam/TwitterSentimentAnalysis/issues"
+  },
+  "homepage": "https://github.com/CoderHam/TwitterSentimentAnalysis#readme"
 }
