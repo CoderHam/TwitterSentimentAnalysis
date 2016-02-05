@@ -21,40 +21,36 @@ block content
     div(class = "page-header")
       div.col-md-10
         h1(class = "text-primary").
-         Twitter Sentiment Analyzer
+         Twitter A/B Polls
       div#total(class = "col-md-2")
     // Table to show statistics
     table.table.table-striped
       tbody
        tr
         td
-         h4.
-          No of Tweets with 'Love'
+          div#start_a
         td
           div#lcount
         td
-         h4.
-          No of Tweets with 'Hate'
+         div#start_b
         td
           div#hcount
        tr
         td
-         h4.
-          Percentage of Tweets with 'Love'
+         div#desc_a
         td
           div#lpercent
         td
-         h4.
-          Percentage of Tweets with 'Hate'
+         div#desc_b
         td
           div#hpercent
     //Table to show tweets.
     div(class="row")
       div(class="col-md-6")
         div(class="panel panel-default", id="l-message-metric")
-          div.panel-heading: h3.panel-title="Tweets with 'Love'"
+          div.panel-heading: h3.panel-title="Tweets with 'Smart'"
         div#lbody(class="panel-body")
       div(class="col-md-6")
         div(class="panel panel-default", id="h-message-metric")
-          div.panel-heading: h3.panel-title="Tweets with 'Hate'"
+          div.panel-heading: h3.panel-title="Tweets with 'Fool'"
         div#hbody(class="panel-body")
