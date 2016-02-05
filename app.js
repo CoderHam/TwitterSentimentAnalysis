@@ -24,48 +24,50 @@ var Twit = require('twit');
 
 // Passing the Twitter Credentials stored as environment variables.
 var T = new Twit({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-    access_token: process.env.TWITTER_ACCESS_TOKEN,
-    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+    consumer_key: 'X5YzGrm339RubsbBOI12uG0A0',
+    consumer_secret: 'FDUrQvbrwgiuAs9jLnj1ftKt57nHhwtFtVOTINbhrWJ4T77cJs',
+    access_token: '73602145-QM07HyWN7uVeKOHhErbSMfATY2dSdTbt3jPb4nJUt',
+    access_token_secret: 'p02lmeHPhwOusyF9BOPGOCiG8lQUFzpMIUGU9A7NZv2D8'
 });
 
 // Variables for calculating the statistics for number of tweets and percentages
-var love_count = 0;
-var hate_count = 0;
-var lpercent = 0;
-var hpercent = 0;
+var a_count = 0;
+var b_count = 0;
+var apercent = 0;
+var bpercent = 0;
 var total = 0;
 
-//Query to fetch the twitter stream with filter Love and Hate.
-var stream = T.stream('statuses/filter', { track: ['love', 'hate'] });
+//Query to fetch the twitter stream with filter A and B.
+var stream = T.stream('statuses/filter', { track: ['smart', 'fool'] });
 
 //Listening to 'tweet' event which sends callback whenever someone sends a tweet with the specified filter.
 stream.on('tweet', function(tweet){
     //Calculating the statistics.
     total++;
-    if(tweet['text'].toLowerCase().indexOf('love') >= 0) {
-        love_count++;
+    if(tweet['text'].toLowerCase().indexOf('smart') >= 0) {
+        a_count++;
     }
-    if(tweet['text'].toLowerCase().indexOf('hate') > -1) {
-        hate_count++;
+    else if(tweet['text'].toLowerCase().indexOf('fool') >= 0) {
+        b_count++;
     }
-    lpercent = (love_count / total * 100);
-    lpercent = Math.round(lpercent * 100)/100;
-    hpercent = (hate_count / total * 100);
-    hpercent = Math.round(hpercent * 100)/100;
+    apercent = (a_count / total * 100);
+    apercent = Math.round(apercent * 100)/100;
+    bpercent = (b_count / total * 100);
+    bpercent = Math.round(bpercent * 100)/100;
 
     // Broadcasting messages to all the connected clients.
     // The message contains all the statistic information, actual tweet message, the name of the person who tweeted, and the image URl of the person.
     sio.sockets.emit('s:tweet', {
-        l_count: love_count,
-        h_count: hate_count,
-        l_percent: lpercent,
-        h_percent: hpercent,
+        l_count: a_count,
+        h_count: b_count,
+        l_percent: apercent,
+        h_percent: bpercent,
         total: total,
         text: tweet.text,
         name: tweet.user.screen_name,
-        url: tweet.user.profile_image_url
+        url: tweet.user.profile_image_url,
+        name_a: 'Smart',
+        name_b: 'Fool'
     });
 
 });
