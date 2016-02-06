@@ -11,6 +11,9 @@ server.on('s:tweet', function(data) {
    //Updates the total number of tweets received.
    $('#total').html('<h1>'+ data.total +'</h1>');
 
+   $('#word_a').html(data.name_a);
+   $('#word_b').html(data.name_b);
+
    $('#start_a').html('<h4>No of Tweets with \''+data.name_a+'\'</h4>');
    $('#start_b').html('<h4>No of Tweets with \''+data.name_b+'\'</h4>');
 
@@ -28,9 +31,6 @@ server.on('s:tweet', function(data) {
        $('#lbody').prepend('<div><h5>'+'<img src="'+ data.url +'">'+'<b>'+ data.name + '</b>' + data['text'] + '</h5></div>');
        // Updates the number of love tweets
        $('#lcount').html('<h4>'+data.l_count+'</h4>');
-
-       //$('#word_a').html(data.name_a);
-       //$('#word_b').html(data.name_b);
 
        // Updates the percentage of love tweets
        $('#lpercent').html('<h4>'+data.l_percent+'</h4>');

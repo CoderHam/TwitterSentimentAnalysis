@@ -24,10 +24,10 @@ var Twit = require('twit');
 
 // Passing the Twitter Credentials stored as environment variables.
 var T = new Twit({
-    consumer_key: 'X5YzGrm339RubsbBOI12uG0A0',
-    consumer_secret: 'FDUrQvbrwgiuAs9jLnj1ftKt57nHhwtFtVOTINbhrWJ4T77cJs',
-    access_token: '73602145-QM07HyWN7uVeKOHhErbSMfATY2dSdTbt3jPb4nJUt',
-    access_token_secret: 'p02lmeHPhwOusyF9BOPGOCiG8lQUFzpMIUGU9A7NZv2D8'
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token: process.env.TWITTER_ACCESS_TOKEN,
+    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
 // Variables for calculating the statistics for number of tweets and percentages
